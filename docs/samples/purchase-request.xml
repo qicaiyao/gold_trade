@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  GOLD1003 实物黄金购买下单 - 请求示例
+  1. sign 需按文档 4.1 节规则计算（Base64(SHA256withRSA(待签名串, 渠道私钥)))
+  2. reqTime 必须与服务器时间偏差在 300 秒内
+  3. reqSerialNo 为幂等键，重试时必须沿用同一个值
+-->
+<request>
+  <header>
+    <tranCode>GOLD1003</tranCode>
+    <version>1.0.0</version>
+    <channel>MOBILE_BANK</channel>
+    <bankCode>ICBC</bankCode>
+    <reqSerialNo>MB20261101000103</reqSerialNo>
+    <reqTime>2026-11-01 16:34:01</reqTime>
+    <signType>RSA2</signType>
+    <sign>Base64 签名串</sign>
+  </header>
+  <body>
+    <customerNo>C1000001</customerNo>
+    <accountNo>6222021234567890</accountNo>
+    <productCode>AU9999-10G</productCode>
+    <quoteNo>Q202611011633588084403</quoteNo>
+    <weight>10</weight>
+    <deliveryMode>DEPOSIT</deliveryMode>
+    <remark>手机银行购买</remark>
+  </body>
+</request>

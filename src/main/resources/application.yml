@@ -1,0 +1,52 @@
+server:
+  port: 8090
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: gold-trade
+  # 演示环境使用 H2 内存库；生产切到 MySQL 见 README
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:goldtrade;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      encoding: UTF-8
+
+# 黄金交易接口配置
+gold:
+  sign:
+    # 是否校验请求签名；演示环境可置 false 便于手工联调，生产必须为 true
+    enabled: true
+    sign-type: RSA2
+    # 生产环境由密钥管理系统下发，Base64 编码的 PKCS#8 私钥 / X.509 公钥
+    private-key:
+    public-key:
+  quote:
+    # 报价锁定时长（秒）
+    ttl-seconds: 60
+  limit:
+    # 单笔购买金额上限（元）
+    single-amount-limit: 200000.00
+    # 单客户单日累计购买金额上限（元）
+    daily-amount-limit: 500000.00
+  time-tolerance-seconds: 300
+
+logging:
+  charset:
+    console: UTF-8
+  level:
+    com.bank.gold: INFO
